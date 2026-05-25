@@ -127,10 +127,9 @@ function getPaidWuwa() {
             Tổng nạp wuwa: ${getMoney("ww").toLocaleString(0)} đ
         </p>
     `;
-    console.log(getData('game-paid-history'));
 
-    saveMoney("ww", 23115000);
-    saveData('game-paid-history', "");
+    // saveMoney("ww", 23115000);
+    // saveData('game-paid-history', "");
 }
 
 getPaidWuwa();
@@ -148,8 +147,8 @@ function updatePriceWuwa()
         year: "2026"
     }
     
-    let currentPriceWuwa = getData("updatePriceWuwa");
-    drawUIUpdateWuwa(currentPriceWuwa);
+    // let currentPriceWuwa = getData("updatePriceWuwa");
+    drawUIUpdateWuwa(dataWuwa);
     
 
     const getMpValue = document.getElementById('mp-ww-update');
@@ -211,7 +210,7 @@ function updatePriceWuwa()
 
         
         saveData("updatePriceWuwa", dataWuwa);
-        currentPriceWuwa = getData('updatePriceWuwa');
+        currentPriceWuwa = getData('updatePriceWuwa') || dataWuwa;
         
         drawUIUpdateWuwa(currentPriceWuwa);
 
