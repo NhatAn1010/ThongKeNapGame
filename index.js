@@ -147,7 +147,8 @@ function updatePriceWuwa()
         year: "2026"
     }
     
-    drawUIUpdateWuwa(dataWuwa);
+    let currentPriceWuwa = getData('updatePriceWuwa') || dataWuwa;
+    drawUIUpdateWuwa(currentPriceWuwa);
     
 
     const getMpValue = document.getElementById('mp-ww-update');
@@ -209,7 +210,7 @@ function updatePriceWuwa()
 
         
         saveData("updatePriceWuwa", dataWuwa);
-        let currentPriceWuwa = getData('updatePriceWuwa') || dataWuwa;
+        currentPriceWuwa = getData('updatePriceWuwa') || dataWuwa;
         
         drawUIUpdateWuwa(currentPriceWuwa);
 
