@@ -365,6 +365,11 @@ function updatePriceNTE()
     }
 
     btnSaveUpdate.addEventListener('click', () => {
+        const today = new Date();
+
+        dataNTE.day = today.getDate();
+        dataNTE.month = today.getMonth() + 1;
+        dataNTE.year = today.getFullYear();
         dataNTE.priceMP = Number(getMpValue.value);
         dataNTE.priceBP = Number(getBpValue.value);
         dataNTE.priceVip = Number(getRollVip.value);
