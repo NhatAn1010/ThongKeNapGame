@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang tính tổng tiền nạp tự động</title>
+    <link rel="stylesheet" href="./bootstrap.css">
+    <script src="./bootstrap.bundle.min.js"></script>
+    <script src="./index.js" defer type="module"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .nav-link:hover {
+            color: red !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <img class="p-0" src="./banner.jpg" alt="" style="width: 100%;height: 200px;">
+        </div>
+        <div class="row">
+            <nav class="navbar navbar-expand navbar-light bg-light">
+                <ul class="nav navbar-nav gap-5 ms-4 text-dark fw-bold">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./index.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " data-bs-toggle="modal" data-bs-target="#modalId-ww" href="#">
+                            Wuthering Waves
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " data-bs-toggle="modal" data-bs-target="#modalId-nte" href="#">
+                            NTE
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./paidhistory.html">Lịch sử nạp</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalIdUpdateWuwa">
+                            Cập nhật giá Wuwa
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalIdUpdateNTE">
+                            Cập nhật giá NTE
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row pt-3">
+            <div class="col-6">
+                <table class="table table-hover table-bordered text-center">
+                    <h5 class="text-center text-uppercase">
+                        Bảng giá nạp Wuwa
+                    </h5>
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Gói nạp</th>
+                            <th>Giá hiện tại</th>
+                            <th>Ngày update</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ww-price"></tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <table class="table table-hover table-bordered text-center">
+                    <h5 class="text-center text-uppercase">
+                        Bảng giá nạp NTE
+                    </h5>
+                    <thead class="table-success">
+                        <tr>
+                            <th>Gói nạp</th>
+                            <th>Giá hiện tại</th>
+                            <th>Ngày update</th>
+                        </tr>
+                    </thead>
+                    <tbody id="nte-price">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="ww-game" class="fw-bold row text-center">
+            <p>
+                Tổng nạp wuwa:
+            </p>
+        </div>
+        <div id="nte-game" class="fw-bold  row text-center">
+            <p>
+                Tổng nạp NTE:
+            </p>
+        </div>
+
+
+        <!-- Modal Wuwa -->
+        <div class="modal fade" id="modalId-ww" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-11">
+                                    <h5 class="modal-title text-center" id="modalTitleId">
+                                        Phiều điền nạp wuwa
+                                    </h5>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="container">
+                                <form id="form-paid-ww">
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="" class="form-label">Chọn gói nạp</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <select id="slt-money-ww" class="form-select" name="" id="">
+                                                    <option value="" class="text-center" selected>=== (Vui lòng chọn)
+                                                        ===</option>
+                                                    <option value="mp-ww">
+                                                        Thẻ tháng
+                                                    </option>
+                                                    <option value="bp-ww">Insider Channel</option>
+                                                    <option value="15r">Gói 15 roll char</option>
+                                                    <option value="5r">Gói 5 roll char</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="" class="form-label ">Nhập vào số lượng</label>
+                                                
+                                            </div>
+                                            <div class="col-8">
+                                                <input id="quantity-value" class="form-control" type="tel" name=""
+                                                    id="">
+                                                <p id="help-text-ww" class="text-danger"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button id="btn-save-ww" type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal NTE -->
+        <div class="modal fade" id="modalId-nte" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-11">
+                                    <h5 class="modal-title text-center" id="modalTitleId">
+                                        Phiều điền nạp NTE
+                                    </h5>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="container">
+                                <form id="form-paid-nte">
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="" class="form-label">Chọn gói nạp</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <select id="slt-money-nte" class="form-select" name="" id="">
+                                                    <option class="text-center" selected>=== (Chọn gói nạp) ===</option>
+                                                    <option value="mp-nte">Thẻ tháng</option>
+                                                    <option value="bp-nte">Insider Channel</option>
+                                                    <option value="10r">Gói 10 roll char banner</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="" class="form-label">Nhập số lượng</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input class="form-control" type="tel" name="" id="nte-quantity">
+                                                <p id="help-text-nte" class="text-danger"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button id="btn-update-nte" type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Update Price Wuwa-->
+        <div class="modal fade" id="modalIdUpdateWuwa" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-11">
+                                    <h5 class="modal-title text-center" id="modalTitleId">
+                                        Phiếu cập nhật giá gói nạp Wuwa
+                                    </h5>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="container">
+                                <form id="form-update-ww">
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="" class="form-label">Thẻ tháng</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input id="mp-ww-update" class="form-control" type="tel" name="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="" class="form-label">Insider Channel</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input id="bp-ww-update" class="form-control" type="tel" name="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="" class="form-label">Gói 15 roll char</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input id="15r" class="form-control" type="tel" name="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="" class="form-label">Gói 5 roll char</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input id="5r" class="form-control" type="tel" name="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="btn-update d-flex justify-content-center">
+                                    <button id="btn-save-update--ww" type="button"
+                                        class="btn btn-success w-50 rounded-pill">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Update Price NTE-->
+        <div class="modal fade" id="modalIdUpdateNTE" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-11">
+                                    <h5 class="modal-title text-center" id="modalTitleId">
+                                        Phiếu cập nhật giá gói nạp NTE
+                                    </h5>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form id="form-update-nte">
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label for="" class="form-label">Thẻ tháng</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input id="mp-nte-update" class="form-control" type="tel" name="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label for="" class="form-label">Insider Channel</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input id="bp-nte-update" class="form-control" type="tel" name="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label for="" class="form-label">Gói 10 roll char</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input id="10r" class="form-control" type="tel" name="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="btn-update d-flex justify-content-center">
+                            <button id="btn-save-update--nte" type="button"
+                                class="btn btn-success w-50 rounded-pill">Save</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
