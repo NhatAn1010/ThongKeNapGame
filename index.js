@@ -147,7 +147,6 @@ function updatePriceWuwa()
         year: "2026"
     }
     
-    // let currentPriceWuwa = getData("updatePriceWuwa");
     drawUIUpdateWuwa(dataWuwa);
     
 
@@ -210,7 +209,7 @@ function updatePriceWuwa()
 
         
         saveData("updatePriceWuwa", dataWuwa);
-        currentPriceWuwa = getData('updatePriceWuwa') || dataWuwa;
+        let currentPriceWuwa = getData('updatePriceWuwa') || dataWuwa;
         
         drawUIUpdateWuwa(currentPriceWuwa);
 
