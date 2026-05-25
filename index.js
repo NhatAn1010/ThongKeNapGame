@@ -330,7 +330,8 @@ function updatePriceNTE()
     const getRollVip = document.getElementById('10r');
     const btnSaveUpdate = document.getElementById('btn-save-update--nte');
 
-    drawUIUpdateNTE(dataNTE);
+    let currentPriceNTE = getData('updatePriceNTE') || dataNTE;
+    drawUIUpdateNTE(currentPriceNTE);
 
     function drawUIUpdateNTE(data)
     {
