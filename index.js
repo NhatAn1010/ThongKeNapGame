@@ -330,8 +330,7 @@ function updatePriceNTE()
     const getRollVip = document.getElementById('10r');
     const btnSaveUpdate = document.getElementById('btn-save-update--nte');
 
-    let currentPriceNTE = getData("updatePriceNTE");
-    drawUIUpdateNTE(currentPriceNTE);
+    drawUIUpdateNTE(dataNTE);
 
     function drawUIUpdateNTE(data)
     {
@@ -370,7 +369,8 @@ function updatePriceNTE()
         dataNTE.priceVip = Number(getRollVip.value);
         
         saveData('updatePriceNTE', dataNTE);
-        drawUIUpdateNTE(dataNTE);
+        let currentPriceNTE = getData('updatePriceNTE') || dataNTE;
+        drawUIUpdateNTE(currentPriceNTE);
         bootstrap.Modal.getOrCreateInstance(
             document.getElementById('modalIdUpdateNTE')
         ).hide();
