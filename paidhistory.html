@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/bootstrap.css">
     <script src="./bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="./paidhistory.js" type="module" defer></script>
 
     <style>
-        .nav-link:hover
-        {
+        .nav-link:hover {
             color: red !important;
+        }
+
+        .totalPage {
+            position: relative;
+            right: 0;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="row">
-            <img class="p-0" src="./banner.jpg" alt=""
-            style="height: 200px; width: 100%;">
+            <img class="p-0" src="./banner.jpg" alt="" style="height: 200px; width: 100%;">
         </div>
         <div class="row p-0">
             <nav class="navbar navbar-expand navbar-light bg-light">
@@ -30,30 +36,39 @@
                 </ul>
             </nav>
         </div>
-        <div class="row">
-            <table class="table-hover table table-bordered">
-                <thead class="table-primary text-center">
-                    <th>STT</th>
-                    <th>Tên game</th>
-                    <th>Tên gói nạp</th>
-                    <th>Giá gói nạp</th>
-                    <th>Số lượng</th>
-                    <th>Ngày nạp</th>
-                    <th>Thời gian nạp</th>
-                </thead>
-                <tbody id="paid-history" class="text-center">
-                    
-                </tbody>
-            </table>
+        <div class="test" style="height: 300px;">
+            <div class="row">
+                <table class="table-hover table table-bordered">
+                    <thead class="table-primary text-center">
+                        <th>STT</th>
+                        <th>Tên game</th>
+                        <th>Tên gói nạp</th>
+                        <th>Giá gói nạp</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                        <th>Ngày nạp</th>
+                        <th>Thời gian nạp</th>
+                    </thead>
+                    <tbody id="paid-history" class="text-center"></tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="d-flex justify-content-center">
-            <div id="btn-prev" class="btn btn-secondary"> < </div>
-            <div id="slide">
+        <div class="row justify-content-center">
+            <button id="btn-prev" class="col-3 btn btn-secondary " style="width: 100px">
+                <i class="bi bi-caret-left-fill"></i>
+            </button>
+            <div id="slide" class="col-3 ms-1">
+                <input type="tel" name="" id="slidePage" class="text-center form-control">
 
             </div>
-            <div id="btn-next" class="ms-1 btn btn-secondary"> > </div>
+            <button id="btn-next" class="col-3 ms-1 btn btn-secondary" style="width: 100px">
+                <i class="bi bi-caret-right-fill"></i>
+            </button>
+            <span id="totalPage" class="d-flex justify-content-center"></span>
         </div>
+        <span id="chk-quantity" class="d-flex justify-content-around text-danger fst-italic"></span>
     </div>
 </body>
+
 </html>
