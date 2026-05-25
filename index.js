@@ -370,7 +370,7 @@ function updatePriceNTE()
         dataNTE.priceVip = Number(getRollVip.value);
         
         saveData('updatePriceNTE', dataNTE);
-        let currentPriceNTE = getData('updatePriceNTE') || dataNTE;
+        currentPriceNTE = getData('updatePriceNTE') || dataNTE;
         drawUIUpdateNTE(currentPriceNTE);
         bootstrap.Modal.getOrCreateInstance(
             document.getElementById('modalIdUpdateNTE')
