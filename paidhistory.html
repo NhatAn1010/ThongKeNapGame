@@ -37,37 +37,26 @@
             </nav>
         </div>
         <div class="test" style="height: 300px;">
-            <div class="row">
+            <div class="row ">
                 <table class="table-hover table table-bordered">
                     <div class="container">
-                        <thead class="table-primary text-center">
-                            <th>STT</th>
-                            <th>Tên game</th>
-                            <th>Tên gói nạp</th>
-                            <th>Giá gói nạp</th>
-                            <th>Số lượng</th>
-                            <th>Thành tiền</th>
-                            <th>Ngày nạp</th>
-                            <th>Thời gian nạp</th>
+                        <thead id="paid-header" class="table-primary text-center">
+                            
                         </thead>
-                        <tbody id="paid-history" class="text-center"></tbody>
+                        <tbody id="paid-history" class="text-center">
+                            
+                        </tbody>
                     </div>
                 </table>
             </div>
+            <div id="null-notice" class="d-flex flex-row align-items-center justify-content-center text-center" style="height: 300px;">
+                
+            </div>
         </div>
 
-        <div class="row justify-content-center">
-            <button id="btn-prev" class="col-3 btn btn-secondary " style="width: 100px">
-                <i class="bi bi-caret-left-fill"></i>
-            </button>
-            <div id="slide" class="col-3 ms-1">
-                <input type="tel" name="" id="slidePage" class="text-center form-control">
 
-            </div>
-            <button id="btn-next" class="col-3 ms-1 btn btn-secondary" style="width: 100px">
-                <i class="bi bi-caret-right-fill"></i>
-            </button>
-            <span id="totalPage" class="d-flex justify-content-center"></span>
+        <div class="row justify-content-center" id="pagination-bar">
+            
         </div>
         <span id="chk-quantity" class="d-flex justify-content-around text-danger fst-italic"></span>
     </div>

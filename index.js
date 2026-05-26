@@ -12,12 +12,19 @@ function getDataPaidGame(dataGame) {
     return saveData('game-paid-history', historyPaid);
 }
 
-function showErrQuantity(errId) {
-    document.getElementById(errId).innerHTML = "Không được để trống số lượng";
+function showErrQuantity(errId, msg) {
+    document.getElementById(errId).innerHTML = msg;
     return false;
 }
 function clearErrQuantity(errId) {
     document.getElementById(errId).innerHTML = "";
+    return true;
+}
+
+function checkRegexQuantity(params) {
+    const regexQuantity = /^\d{1,}$/;
+    const inputValue = Number(params.value);
+    if(!regexQuantity.test(inputValue) || inputValue <= 0) return false;
     return true;
 }
 
@@ -55,8 +62,12 @@ function getPaidWuwa() {
     document.getElementById('quantity-value').addEventListener('blur', validInputQuantity)
     function validInputQuantity() {
         let inputValue = document.getElementById('quantity-value');
-        if (inputValue.value === "") return showErrQuantity('help-text-ww');
-
+        if (inputValue.value === "") return showErrQuantity('help-text-ww', 
+            "không được để trống số lượng"
+        );
+        if(!checkRegexQuantity(inputValue)) return showErrQuantity('help-text-ww',
+            "giá trị không hợp lệ, chỉ chấp nhận giá trị nhập vào là số, không được nhỏ hơn 0"
+        )
         outputValue = inputValue.value;
         dataPayWuwa.packQuantity = outputValue;
         return clearErrQuantity('help-text-ww');
@@ -127,8 +138,8 @@ function getPaidWuwa() {
         </p>
     `;
 
-    // saveMoney("ww", 23115000);
-    // saveData('game-paid-history', "");
+    saveMoney("ww", 23115000);
+    saveData('game-paid-history', "");
 }
 
 getPaidWuwa();
@@ -200,6 +211,12 @@ function updatePriceWuwa() {
         dataWuwa.day = today.getDate();
         dataWuwa.month = today.getMonth() + 1;
         dataWuwa.year = today.getFullYear();
+
+        if(getMpValue.value === "" ||
+            getBpValue.value === "" ||
+            getRollVipValue.value === "" ||
+            getRollNormalValue.value === ""
+        ) return;
         dataWuwa.priceMP = Number(getMpValue.value);
         dataWuwa.priceBP = Number(getBpValue.value);
         dataWuwa.priceVip = Number(getRollVipValue.value);
@@ -265,8 +282,13 @@ function getPaidNTE() {
 
     document.getElementById('nte-quantity').addEventListener('blur', validInputQuantity);
     function validInputQuantity() {
-        let inputValue = document.getElementById('nte-quantity').value;
-        if (inputValue === "") return showErrQuantity('help-text-nte');
+        let inputValue = document.getElementById('nte-quantity');
+        if (inputValue.value === "") return showErrQuantity('help-text-nte', 
+            "không được để trống số lượng"
+        );
+        if(!checkRegexQuantity(inputValue)) return showErrQuantity('help-text-nte',
+            "giá trị không hợp lệ, chỉ chấp nhận giá trị nhập vào là số, không được nhỏ hơn 0"
+        )
 
         return clearErrQuantity('help-text-nte');
     }
@@ -306,7 +328,7 @@ function getPaidNTE() {
         </p>
     `;
 
-    // saveMoney('nte', 665000);
+    saveMoney('nte', 665000);
 }
 
 getPaidNTE();
@@ -360,6 +382,10 @@ function updatePriceNTE() {
     }
 
     btnSaveUpdate.addEventListener('click', () => {
+        if(getMpValue.value === "" ||
+            getBpValue.value === "" ||
+            getRollVip.value === ""
+        ) return;
         const today = new Date();
 
         dataNTE.day = today.getDate();
