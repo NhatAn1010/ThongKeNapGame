@@ -79,6 +79,14 @@ function pagination() {
 
     window.onSlide = onSlide;
 
+    if(currentPage <= 1)
+    {
+        document.querySelector('#btn-prev').classList.add('disabled');
+        document.querySelector('#btn-next').classList.add('disabled');
+    }
+    if(size > 1) document.querySelector('#btn-next').classList.remove('disabled');
+    
+
     document.querySelector('#btn-prev')
         .addEventListener('click', () => {
 
@@ -104,8 +112,12 @@ function pagination() {
             renderListPaidHistory();
 
             if (currentPage >= size)
+            {
+                console.log(currentPage);
+                
                 document.querySelector('#btn-next')
                     .classList.add('disabled')
+            }
 
             document.querySelector('#btn-prev')
                 .classList.remove('disabled');
