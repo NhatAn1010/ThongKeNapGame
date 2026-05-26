@@ -115,7 +115,7 @@ function getPaidWuwa() {
 
             if (!isValid) return;
             getDataPaidGame(dataPayWuwa);
-            console.log(isValid);
+
 
             totalMoney = originalMoneyWuwa + packPrice * outputValue
             saveMoney('ww', totalMoney);
