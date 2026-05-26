@@ -137,9 +137,6 @@ function getPaidWuwa() {
             Tổng nạp wuwa: ${getMoney("ww").toLocaleString(0)} đ
         </p>
     `;
-
-    saveMoney("ww", 23115000);
-    saveData('game-paid-history', "");
 }
 
 getPaidWuwa();
@@ -327,8 +324,6 @@ function getPaidNTE() {
             Tổng nạp NTE: ${getMoney('nte').toLocaleString(0)} đ
         </p>
     `;
-
-    saveMoney('nte', 665000);
 }
 
 getPaidNTE();
