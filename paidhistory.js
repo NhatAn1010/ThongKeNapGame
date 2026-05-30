@@ -1,6 +1,7 @@
-import { getData } from "./storage.js";
+import { getData, saveData } from "./storage.js";
 
 const getPaidHistory = (getData("game-paid-history") || []).reverse();
+
 
 const perPage = 5;
 let size = Math.ceil(getPaidHistory.length / perPage);

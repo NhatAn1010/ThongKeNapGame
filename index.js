@@ -5,6 +5,33 @@ import { getData } from "./storage.js";
 import { clearForm } from "./storage.js";
 
 
+/* 
+nếu dùng lần đầu thì update trước, nếu không nó sẽ là NULL
+*/
+let dataUpdateWuwa = {
+    priceMP: "",
+    priceBP: "",
+    priceVip: "",
+    priceNormal: "",
+    day: "15",
+    month: "5",
+    year: "2026"
+}
+let currentPriceWuwa = getData('updatePriceWuwa') || dataUpdateWuwa;
+
+let dataUpdateNTE = {
+    priceMP: "",
+    priceBP: "",
+    priceVip: "",
+    day: "15",
+    month: "5",
+    year: "2026"
+}
+
+let currentPriceNTE = getData('updatePriceNTE') || dataUpdateNTE;
+
+// ========================================
+
 function getDataPaidGame(dataGame) {
     let historyPaid = getData('game-paid-history') || [];
 
@@ -16,6 +43,7 @@ function showErrQuantity(errId, msg) {
     document.getElementById(errId).innerHTML = msg;
     return false;
 }
+
 function clearErrQuantity(errId) {
     document.getElementById(errId).innerHTML = "";
     return true;
@@ -27,28 +55,23 @@ function checkRegexQuantity(params) {
     if(!regexQuantity.test(inputValue) || inputValue <= 0) return false;
     return true;
 }
+let packPrice = 0;
 
 function getPaidWuwa() {
 
     // init value
 
-    let originalMoneyWuwa = getMoney("ww");
-
+    let originalMoneyWuwa = getMoney("ww") || 0;
     let outputValue = 0;
-    let packPrice;
     let totalMoney;
-    let mpPrice = 103e3;
-    let bpPrice = 230e3;
-    let rollVip = 608e3; // gói 15 roll
-    let rollNormal = 230e3; // gói 5 roll
     /*
         dùng để lưu các giá trị sau khi nhập vào 
      */
 
     let dataPayWuwa = {
-        "gameName": "Wuthering Waves",
+        gameName: "Wuthering Waves",
         "packName": "",
-        "packPrice": "",
+        packPrice: "",
         "packDate": "",
         "packMonth": "",
         "packYear": "",
@@ -77,28 +100,25 @@ function getPaidWuwa() {
         .addEventListener('change', slGame => {
             switch (slGame.target.value) {
                 case "mp-ww":
-                    packPrice = mpPrice;
                     dataPayWuwa.packName = "Thẻ tháng";
-                    dataPayWuwa.packPrice = mpPrice;
+                    packPrice = currentPriceWuwa.priceMP;
                     break;
                 case "bp-ww":
-                    packPrice = bpPrice;
                     dataPayWuwa.packName = "BP";
-                    dataPayWuwa.packPrice = bpPrice;
+                    packPrice = currentPriceWuwa.priceBP;
                     break;
                 case "15r":
-                    packPrice = rollVip;
                     dataPayWuwa.packName = "Gói 15 roll char";
-                    dataPayWuwa.packPrice = rollVip;
+                    packPrice = currentPriceWuwa.priceVip;
                     break;
                 case "5r":
-                    packPrice = rollNormal;
                     dataPayWuwa.packName = "Gói 5 roll char";
-                    dataPayWuwa.packPrice = rollNormal;
+                    packPrice = currentPriceWuwa.priceNormal;
                     break;
             }
-
         })
+
+        
 
     document.getElementById('btn-save-ww')
         .addEventListener('click', () => {
@@ -110,14 +130,14 @@ function getPaidWuwa() {
             dataPayWuwa.packMonth = today.getMonth() + 1;
             dataPayWuwa.packYear = today.getFullYear();
             dataPayWuwa.packHours = today.getHours();
+            dataPayWuwa.packPrice = packPrice;
             dataPayWuwa.packMin = String(today.getMinutes()).padStart(2, "0");
             dataPayWuwa.packSec = String(today.getSeconds()).padStart(2, "0");
 
             if (!isValid) return;
             getDataPaidGame(dataPayWuwa);
-
-
-            totalMoney = originalMoneyWuwa + packPrice * outputValue
+            
+            totalMoney = originalMoneyWuwa + dataUpdateWuwa.packPrice * outputValue
             saveMoney('ww', totalMoney);
             document.getElementById('ww-game').innerHTML = `
             <p>
@@ -137,26 +157,18 @@ function getPaidWuwa() {
             Tổng nạp wuwa: ${getMoney("ww").toLocaleString(0)} đ
         </p>
     `;
+    saveMoney('ww', 23115000);
+
+    
 }
 
 getPaidWuwa();
 
 function updatePriceWuwa() {
 
-    let dataWuwa = {
-        priceMP: 103000,
-        priceBP: 203000,
-        priceVip: 608000,
-        priceNormal: 203000,
-        day: "15",
-        month: "5",
-        year: "2026"
-    }
-
-    let currentPriceWuwa = getData('updatePriceWuwa') || dataWuwa;
+    
     drawUIUpdateWuwa(currentPriceWuwa);
-
-
+    
     const getMpValue = document.getElementById('mp-ww-update');
     const getBpValue = document.getElementById('bp-ww-update');
     const getRollVipValue = document.getElementById('15r');
@@ -205,23 +217,23 @@ function updatePriceWuwa() {
 
         const today = new Date();
 
-        dataWuwa.day = today.getDate();
-        dataWuwa.month = today.getMonth() + 1;
-        dataWuwa.year = today.getFullYear();
+        dataUpdateWuwa.day = today.getDate();
+        dataUpdateWuwa.month = today.getMonth() + 1;
+        dataUpdateWuwa.year = today.getFullYear();
 
         if(getMpValue.value === "" ||
             getBpValue.value === "" ||
             getRollVipValue.value === "" ||
             getRollNormalValue.value === ""
         ) return;
-        dataWuwa.priceMP = Number(getMpValue.value);
-        dataWuwa.priceBP = Number(getBpValue.value);
-        dataWuwa.priceVip = Number(getRollVipValue.value);
-        dataWuwa.priceNormal = Number(getRollNormalValue.value);
+        dataUpdateWuwa.priceMP = Number(getMpValue.value);
+        dataUpdateWuwa.priceBP = Number(getBpValue.value);
+        dataUpdateWuwa.priceVip = Number(getRollVipValue.value);
+        dataUpdateWuwa.priceNormal = Number(getRollNormalValue.value);
 
 
-        saveData("updatePriceWuwa", dataWuwa);
-        currentPriceWuwa = getData('updatePriceWuwa') || dataWuwa;
+        saveData("updatePriceWuwa", dataUpdateWuwa);
+        currentPriceWuwa = getData('updatePriceWuwa') || dataUpdateWuwa;
 
         drawUIUpdateWuwa(currentPriceWuwa);
 
@@ -254,9 +266,9 @@ function getPaidNTE() {
 
     
     let origianlMoneyNTE = getMoney("nte");
-    let mpPrice = 110e3;
-    let bpPrice = 220e3;
-    let rollBannerPrice = 330e3;
+    // let mpPrice = 110e3;
+    // let bpPrice = 220e3;
+    // let rollBannerPrice = 330e3;
     let outputMoney;
 
     let sltMoneyNTE = document.querySelector('#slt-money-nte');
@@ -264,15 +276,15 @@ function getPaidNTE() {
         switch (slt.target.value) {
             case "mp-nte":
                 dataPayNTE.packName = "Thẻ tháng"
-                dataPayNTE.packPrice = mpPrice;
+                dataPayNTE.packPrice = dataUpdateNTE.priceMP;
                 break;
             case 'bp-nte':
                 dataPayNTE.packName = "Insider Channel"
-                dataPayNTE.packPrice = bpPrice;
+                dataPayNTE.packPrice = dataUpdateNTE.priceBP;
                 break;
             case '10r':
                 dataPayNTE.packName = "gói 10 roll banner"
-                dataPayNTE.packPrice = rollBannerPrice;
+                dataPayNTE.packPrice = dataUpdateNTE.priceVip;
                 break;
         }
     })
@@ -295,7 +307,7 @@ function getPaidNTE() {
             let isValid = true;
             if (!validInputQuantity()) isValid = false;
             const today = new Date();
-            outputMoney = origianlMoneyNTE + dataPayNTE.packPrice * (parseInt(document.getElementById('nte-quantity').value));
+            outputMoney = origianlMoneyNTE + dataUpdateNTE.packPrice * (parseInt(document.getElementById('nte-quantity').value));
             dataPayNTE.packDate = today.getDate();
             dataPayNTE.packMonth = today.getMonth() + 1;
             dataPayNTE.packYear = today.getFullYear();
@@ -324,26 +336,20 @@ function getPaidNTE() {
             Tổng nạp NTE: ${getMoney('nte').toLocaleString(0)} đ
         </p>
     `;
+
+    // saveMoney('nte',995000);
 }
 
 getPaidNTE();
 
 function updatePriceNTE() {
-    let dataNTE = {
-        priceMP: 110000,
-        priceBP: 220000,
-        priceVip: 330000,
-        day: "15",
-        month: "5",
-        year: "2026"
-    }
 
     const getMpValue = document.getElementById('mp-nte-update');
     const getBpValue = document.getElementById('bp-nte-update');
     const getRollVip = document.getElementById('10r');
     const btnSaveUpdate = document.getElementById('btn-save-update--nte');
 
-    let currentPriceNTE = getData('updatePriceNTE') || dataNTE;
+    
     drawUIUpdateNTE(currentPriceNTE);
 
     function drawUIUpdateNTE(data) {
@@ -383,15 +389,15 @@ function updatePriceNTE() {
         ) return;
         const today = new Date();
 
-        dataNTE.day = today.getDate();
-        dataNTE.month = today.getMonth() + 1;
-        dataNTE.year = today.getFullYear();
-        dataNTE.priceMP = Number(getMpValue.value);
-        dataNTE.priceBP = Number(getBpValue.value);
-        dataNTE.priceVip = Number(getRollVip.value);
+        dataUpdateNTE.day = today.getDate();
+        dataUpdateNTE.month = today.getMonth() + 1;
+        dataUpdateNTE.year = today.getFullYear();
+        dataUpdateNTE.priceMP = Number(getMpValue.value);
+        dataUpdateNTE.priceBP = Number(getBpValue.value);
+        dataUpdateNTE.priceVip = Number(getRollVip.value);
 
-        saveData('updatePriceNTE', dataNTE);
-        currentPriceNTE = getData('updatePriceNTE') || dataNTE;
+        saveData('updatePriceNTE', dataUpdateNTE);
+        currentPriceNTE = getData('updatePriceNTE') || dataUpdateNTE;
         drawUIUpdateNTE(currentPriceNTE);
         bootstrap.Modal.getOrCreateInstance(
             document.getElementById('modalIdUpdateNTE')
