@@ -264,11 +264,8 @@ function getPaidNTE() {
     }
 
 
-    
+    let packPrice = 0;
     let origianlMoneyNTE = getMoney("nte");
-    // let mpPrice = 110e3;
-    // let bpPrice = 220e3;
-    // let rollBannerPrice = 330e3;
     let outputMoney;
 
     let sltMoneyNTE = document.querySelector('#slt-money-nte');
@@ -276,15 +273,15 @@ function getPaidNTE() {
         switch (slt.target.value) {
             case "mp-nte":
                 dataPayNTE.packName = "Thẻ tháng"
-                dataPayNTE.packPrice = dataUpdateNTE.priceMP;
+                packPrice = currentPriceNTE.priceMP;
                 break;
             case 'bp-nte':
                 dataPayNTE.packName = "Insider Channel"
-                dataPayNTE.packPrice = dataUpdateNTE.priceBP;
+                packPrice = currentPriceNTE.priceBP;
                 break;
             case '10r':
                 dataPayNTE.packName = "gói 10 roll banner"
-                dataPayNTE.packPrice = dataUpdateNTE.priceVip;
+                packPrice = currentPriceNTE.priceVip;
                 break;
         }
     })
@@ -311,6 +308,7 @@ function getPaidNTE() {
             dataPayNTE.packDate = today.getDate();
             dataPayNTE.packMonth = today.getMonth() + 1;
             dataPayNTE.packYear = today.getFullYear();
+            dataPayNTE.packPrice = packPrice;
             dataPayNTE.packHours = today.getHours();
             dataPayNTE.packMin = String(today.getMinutes()).padStart(2, "0");
             dataPayNTE.packSec = String(today.getSeconds()).padStart(2, "0");
