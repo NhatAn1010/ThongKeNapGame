@@ -17,7 +17,7 @@ let dataUpdateWuwa = {
     month: "5",
     year: "2026"
 }
-let currentPriceWuwa = getData('updatePriceWuwa') || dataUpdateWuwa;
+let currentPriceWuwa = getData('updatePriceWuwa') ?? dataUpdateWuwa;
 
 let dataUpdateNTE = {
     priceMP: "",
@@ -28,13 +28,14 @@ let dataUpdateNTE = {
     year: "2026"
 }
 
-let currentPriceNTE = getData('updatePriceNTE') || dataUpdateNTE;
+let currentPriceNTE = getData('updatePriceNTE') ?? dataUpdateNTE;
 
 // ========================================
 
-function getDataPaidGame(dataGame) {
+function addDataPaidGame(dataGame) {
     let historyPaid = getData('game-paid-history') || [];
-
+    // console.log(typeof getData('game-paid-history'));
+    
     historyPaid.push(dataGame);
     return saveData('game-paid-history', historyPaid);
 }
@@ -69,9 +70,9 @@ function getPaidWuwa() {
      */
 
     let dataPayWuwa = {
-        gameName: "Wuthering Waves",
+        "gameName": "Wuthering Waves",
         "packName": "",
-        packPrice: "",
+        "packPrice": "",
         "packDate": "",
         "packMonth": "",
         "packYear": "",
@@ -119,7 +120,6 @@ function getPaidWuwa() {
         })
 
         
-
     document.getElementById('btn-save-ww')
         .addEventListener('click', () => {
             let isValid = true;
@@ -135,9 +135,10 @@ function getPaidWuwa() {
             dataPayWuwa.packSec = String(today.getSeconds()).padStart(2, "0");
 
             if (!isValid) return;
-            getDataPaidGame(dataPayWuwa);
+            addDataPaidGame(dataPayWuwa);
             
-            totalMoney = originalMoneyWuwa + dataUpdateWuwa.packPrice * outputValue
+            
+            totalMoney = originalMoneyWuwa + packPrice * outputValue
             saveMoney('ww', totalMoney);
             document.getElementById('ww-game').innerHTML = `
             <p>
@@ -157,10 +158,11 @@ function getPaidWuwa() {
             Tổng nạp wuwa: ${getMoney("ww").toLocaleString(0)} đ
         </p>
     `;
-    saveMoney('ww', 23115000);
+    // saveMoney('ww', 23115000);
 
-    
+    // saveData('game-paid-history', "");
 }
+
 
 getPaidWuwa();
 
@@ -304,7 +306,7 @@ function getPaidNTE() {
             let isValid = true;
             if (!validInputQuantity()) isValid = false;
             const today = new Date();
-            outputMoney = origianlMoneyNTE + dataUpdateNTE.packPrice * (parseInt(document.getElementById('nte-quantity').value));
+            outputMoney = origianlMoneyNTE + packPrice * (parseInt(document.getElementById('nte-quantity').value));
             dataPayNTE.packDate = today.getDate();
             dataPayNTE.packMonth = today.getMonth() + 1;
             dataPayNTE.packYear = today.getFullYear();
@@ -315,7 +317,7 @@ function getPaidNTE() {
             dataPayNTE.packQuantity = (parseInt(document.getElementById('nte-quantity').value));
 
             if (!isValid) return;
-            getDataPaidGame(dataPayNTE);
+            addDataPaidGame(dataPayNTE);
 
             saveMoney('nte', outputMoney);
             document.getElementById('nte-game').innerHTML = `
@@ -335,7 +337,7 @@ function getPaidNTE() {
         </p>
     `;
 
-    // saveMoney('nte',995000);
+    // saveMoney('nte',1105000);
 }
 
 getPaidNTE();

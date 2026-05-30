@@ -1,6 +1,15 @@
 import { getData, saveData } from "./storage.js";
 
-const getPaidHistory = (getData("game-paid-history") || []).reverse();
+let getPaidHistory = Object.values(getData('game-paid-history') || []).reverse();
+let newArr = [...getPaidHistory];
+console.log(newArr);
+
+
+// newArr = getPaidHistory.shift();
+// getPaidHistory = getData('game-paid-history');
+// console.log(getPaidHistory);
+
+
 
 
 const perPage = 5;
@@ -15,6 +24,14 @@ function pagination() {
         return page;
     }
 
+    document.querySelector('#btn-xoa')
+    .addEventListener('click', () => {
+        newArr = getPaidHistory.slice(1);
+        
+        saveData('game-paid-history', newArr);
+        window.location.reload();
+    })
+
     function renderListPaidHistory() {
         start = (currentPage - 1) * perPage;
         end = start + perPage;
@@ -24,7 +41,6 @@ function pagination() {
         currentPaidHistory.forEach((el, i) =>
             html += renderTablePaidHistory(el, start + i + 1)
         )
-
         
 
         document.querySelector('#paid-history')
