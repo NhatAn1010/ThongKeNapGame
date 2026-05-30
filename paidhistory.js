@@ -1,16 +1,6 @@
-import { getData, saveData } from "./storage.js";
+import { getData } from "./storage.js";
 
 let getPaidHistory = Object.values(getData('game-paid-history') || []).reverse();
-let newArr = [...getPaidHistory];
-console.log(newArr);
-
-
-// newArr = getPaidHistory.shift();
-// getPaidHistory = getData('game-paid-history');
-// console.log(getPaidHistory);
-
-
-
 
 const perPage = 5;
 let size = Math.ceil(getPaidHistory.length / perPage);
@@ -23,14 +13,6 @@ function pagination() {
     function onSlide(page) {
         return page;
     }
-
-    document.querySelector('#btn-xoa')
-    .addEventListener('click', () => {
-        newArr = getPaidHistory.slice(1);
-        
-        saveData('game-paid-history', newArr);
-        window.location.reload();
-    })
 
     function renderListPaidHistory() {
         start = (currentPage - 1) * perPage;

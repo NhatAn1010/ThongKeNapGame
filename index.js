@@ -158,9 +158,6 @@ function getPaidWuwa() {
             Tổng nạp wuwa: ${getMoney("ww").toLocaleString(0)} đ
         </p>
     `;
-    // saveMoney('ww', 23115000);
-
-    // saveData('game-paid-history', "");
 }
 
 
