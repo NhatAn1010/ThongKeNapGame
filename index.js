@@ -65,6 +65,7 @@ function getPaidWuwa() {
     let originalMoneyWuwa = getMoney("ww") || 0;
     let outputValue = 0;
     let totalMoney;
+    
     /*
         dùng để lưu các giá trị sau khi nhập vào 
      */
@@ -124,8 +125,8 @@ function getPaidWuwa() {
         .addEventListener('click', () => {
             let isValid = true;
             if (!validInputQuantity()) isValid = false;
-
-            const today = new Date()
+            const today = new Date();
+            
             dataPayWuwa.packDate = today.getDate();
             dataPayWuwa.packMonth = today.getMonth() + 1;
             dataPayWuwa.packYear = today.getFullYear();
