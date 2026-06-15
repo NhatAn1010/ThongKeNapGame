@@ -158,8 +158,6 @@ function getPaidWuwa() {
             Tổng nạp wuwa: ${getMoney("ww").toLocaleString(0)} đ
         </p>
     `;
-
-    saveMoney('ww', 24314000);
 }
 
 
