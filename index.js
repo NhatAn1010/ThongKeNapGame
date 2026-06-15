@@ -62,7 +62,6 @@ function getPaidWuwa() {
 
     // init value
 
-    let originalMoneyWuwa = getMoney("ww") || 0;
     let outputValue = 0;
     let totalMoney;
     
@@ -93,7 +92,7 @@ function getPaidWuwa() {
         if(!checkRegexQuantity(inputValue)) return showErrQuantity('help-text-ww',
             "giá trị không hợp lệ, chỉ chấp nhận giá trị nhập vào là số, không được nhỏ hơn 0"
         )
-        outputValue = inputValue.value;
+        outputValue = Number(inputValue.value);
         dataPayWuwa.packQuantity = outputValue;
         return clearErrQuantity('help-text-ww');
     }
@@ -118,11 +117,10 @@ function getPaidWuwa() {
                     packPrice = currentPriceWuwa.priceNormal;
                     break;
             }
-        })
-
-        
+        })  
     document.getElementById('btn-save-ww')
         .addEventListener('click', () => {
+            let originalMoneyWuwa = getMoney("ww") || 0;
             let isValid = true;
             if (!validInputQuantity()) isValid = false;
             const today = new Date();
@@ -141,9 +139,10 @@ function getPaidWuwa() {
             
             totalMoney = originalMoneyWuwa + packPrice * outputValue
             saveMoney('ww', totalMoney);
+            
             document.getElementById('ww-game').innerHTML = `
             <p>
-                Tổng nạp wuwa: ${totalMoney.toLocaleString(0)}
+                Tổng nạp wuwa: ${getMoney('ww').toLocaleString(0)}
             </p>
         `;
 
@@ -159,6 +158,8 @@ function getPaidWuwa() {
             Tổng nạp wuwa: ${getMoney("ww").toLocaleString(0)} đ
         </p>
     `;
+
+    saveMoney('ww', 24314000);
 }
 
 
