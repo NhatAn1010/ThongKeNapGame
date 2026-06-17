@@ -264,7 +264,6 @@ function getPaidNTE() {
 
 
     let packPrice = 0;
-    let origianlMoneyNTE = getMoney("nte");
     let outputMoney;
 
     let sltMoneyNTE = document.querySelector('#slt-money-nte');
@@ -301,8 +300,11 @@ function getPaidNTE() {
     document.getElementById('btn-update-nte')
         .addEventListener('click', () => {
             let isValid = true;
+            let origianlMoneyNTE = getMoney("nte");
+
             if (!validInputQuantity()) isValid = false;
             const today = new Date();
+            
             outputMoney = origianlMoneyNTE + packPrice * (parseInt(document.getElementById('nte-quantity').value));
             dataPayNTE.packDate = today.getDate();
             dataPayNTE.packMonth = today.getMonth() + 1;
@@ -315,6 +317,7 @@ function getPaidNTE() {
 
             if (!isValid) return;
             addDataPaidGame(dataPayNTE);
+
 
             saveMoney('nte', outputMoney);
             document.getElementById('nte-game').innerHTML = `
@@ -334,7 +337,7 @@ function getPaidNTE() {
         </p>
     `;
 
-    // saveMoney('nte',1105000);
+    saveMoney('nte',2090000);
 }
 
 getPaidNTE();
