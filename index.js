@@ -336,8 +336,6 @@ function getPaidNTE() {
             Tổng nạp NTE: ${getMoney('nte').toLocaleString(0)} đ
         </p>
     `;
-
-    saveMoney('nte',2090000);
 }
 
 getPaidNTE();
